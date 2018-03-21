@@ -27,12 +27,11 @@ public class TimeDependCard extends StandardCard {
         checkOnActivate();
     }
     public void setEndOfAbonement(int days){
-        if(days > 0)
-        {
-            this.balanceOnCard = days;
-            this.endOfAbonement = new Date(new Date().getTime() + getMillisecondFromDays(days));
+
+            this.balanceOnCard = days > 0 ? days : 0;
+            this.endOfAbonement =  days > 0 ? new Date(new Date().getTime() + getMillisecondFromDays(days)) : new Date();
             checkOnActivate();
-        }
+
     }
 
     public Date getEndOfAbonement() {

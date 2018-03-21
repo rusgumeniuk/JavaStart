@@ -7,89 +7,183 @@ import Lab3OOP.Cards.StudyingCards.PupilCard;
 import Lab3OOP.Cards.StudyingCards.StudentCard;
 import Lab3OOP.TrackingSystem.ControlSystem;
 import Lab3OOP.TrackingSystem.Turnstile;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runners.MethodSorters;
 
 import java.time.YearMonth;
 import java.util.Date;
 
 import static org.junit.Assert.*;
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestTurnstileSystem {
+    
+    static Turnstile turnstile1;// = new Turnstile();
+    static Turnstile turnstile2;// = new Turnstile();
 
-    Turnstile turnstile1 = new Turnstile();
-    Turnstile turnstile2 = new Turnstile();
+    static StudentCard studentCard1;//= ControlSystem.createStudentCard();
+    static StudentCard studentCard2;// = ControlSystem.createStudentCard(true);
+    static StudentCard studentCard3;// = ControlSystem.createStudentCard(true, YearMonth.of(2018,6));
 
-    StudentCard studentCard1= ControlSystem.createStudentCard();
-    StudentCard studentCard2 = ControlSystem.createStudentCard(true);
-    StudentCard studentCard3 = ControlSystem.createStudentCard(true, YearMonth.of(2018,6));
+    static PupilCard pupilCard1;// = ControlSystem.createPupilCard();
+    static PupilCard pupilCard2;// = ControlSystem.createPupilCard(true);
+    static PupilCard pupilCard3;// = ControlSystem.createPupilCard(true, YearMonth.of(2018,5));
 
-    PupilCard pupilCard1 = ControlSystem.createPupilCard();
-    PupilCard pupilCard2 = ControlSystem.createPupilCard(true);
-    PupilCard pupilCard3 = ControlSystem.createPupilCard(true, YearMonth.of(2018,5));
-
-    MoneyDependCard moneyCard1 = ControlSystem.createMoneyDependCard();
-    MoneyDependCard moneyCard2 = ControlSystem.createMoneyDependCard(true);
-    MoneyDependCard moneyCard3 = ControlSystem.createMoneyDependCard(true,7);
+    static MoneyDependCard moneyCard1;// = ControlSystem.createMoneyDependCard();
+    static MoneyDependCard moneyCard2;// = ControlSystem.createMoneyDependCard(true);
+    static MoneyDependCard moneyCard3;// = ControlSystem.createMoneyDependCard(true,7);
 
 
-    TripDependCard tripCard1 = ControlSystem.createTripDependCard();
-    TripDependCard tripCard2 = ControlSystem.createTripDependCard(true);
-    TripDependCard tripCard3 = ControlSystem.createTripDependCard(true,2);
+    static TripDependCard tripCard1;// = ControlSystem.createTripDependCard();
+    static TripDependCard tripCard2;// = ControlSystem.createTripDependCard(true);
+    static TripDependCard tripCard3;// = ControlSystem.createTripDependCard(true,2);
 
-    TimeDependCard timeCard1 = ControlSystem.createTimeDependCard();
-    TimeDependCard timeCard2 = ControlSystem.createTimeDependCard(true);
-    TimeDependCard timeCard3 = ControlSystem.createTimeDependCard(true, new Date( new Date().getTime() + 1000*60*60*96));
-    TimeDependCard timeCard4 = ControlSystem.createTimeDependCard(true,4);
+    static TimeDependCard timeCard1;// = ControlSystem.createTimeDependCard();
+    static TimeDependCard timeCard2;// = ControlSystem.createTimeDependCard(true);
+    static TimeDependCard timeCard3;// = ControlSystem.createTimeDependCard(true, new Date( new Date().getTime() + 1000*60*60*96));
+    static TimeDependCard timeCard4 ;//= ControlSystem.createTimeDependCard(true,4);
 
-    @Before
-    public void setUp() throws Exception {
-        //System.out.println(ControlSystem.getInfoAboutAllCards());
+    @BeforeClass
+    public static void letsGetIt(){
+         turnstile1 = new Turnstile();
+         turnstile2 = new Turnstile();
+
+         studentCard1= ControlSystem.createStudentCard();
+         studentCard2 = ControlSystem.createStudentCard(true);
+         studentCard3 = ControlSystem.createStudentCard(true, YearMonth.of(2018,6));
+
+         pupilCard1 = ControlSystem.createPupilCard();
+         pupilCard2 = ControlSystem.createPupilCard(true);
+         pupilCard3 = ControlSystem.createPupilCard(true, YearMonth.of(2018,5));
+
+         moneyCard1 = ControlSystem.createMoneyDependCard();
+         moneyCard2 = ControlSystem.createMoneyDependCard(true);
+         moneyCard3 = ControlSystem.createMoneyDependCard(true,7);
+
+
+         tripCard1 = ControlSystem.createTripDependCard();
+         tripCard2 = ControlSystem.createTripDependCard(true);
+         tripCard3 = ControlSystem.createTripDependCard(true,2);
+
+         timeCard1 = ControlSystem.createTimeDependCard();
+         timeCard2 = ControlSystem.createTimeDependCard(true);
+         timeCard3 = ControlSystem.createTimeDependCard(true, new Date( new Date().getTime() + 1000*60*60*96));
+         timeCard4 = ControlSystem.createTimeDependCard(true,4);
     }
-/*
+
     @Test
-    public void startedCheck(){
+    public void aFirstTestTurnstilesAndSystem(){
+        assertEquals(16, ControlSystem.getCountOfCard());
         assertEquals(16, ControlSystem.getCountOfActiveCard());
         assertEquals(0, turnstile1.getCountOfAllowTrips());
         assertEquals(0, turnstile2.getCountOfAllTrips());
         assertEquals(0, ControlSystem.getCountOfAllTrips());
     }
-*/
     @Test
-    public void checkAfterTrips(){
-        assertEquals(16, ControlSystem.getCountOfActiveCard());
-        assertEquals(0, turnstile1.getCountOfAllowTrips());
-        assertEquals(0, turnstile2.getCountOfAllTrips());
-        assertEquals(0, ControlSystem.getCountOfAllTrips());
+    public void bFirstTrips(){
 
-        ///////////////////////////////////////////////////////////
+        assertTrue(turnstile1.allowPass(studentCard1));
+        assertTrue(turnstile1.allowPass(studentCard2));
+        assertTrue(turnstile1.allowPass(studentCard3));
 
-        assertEquals(true,turnstile1.allowPass(studentCard1));
-        assertEquals(true,turnstile1.allowPass(studentCard2));
-        assertEquals(true,turnstile1.allowPass(studentCard3));
+        assertTrue(turnstile1.allowPass(pupilCard1));
+        assertTrue(turnstile1.allowPass(pupilCard2));
+        assertTrue(turnstile1.allowPass(pupilCard3));
 
         ControlSystem.setCostOfTrip(3);
 
-        assertEquals(true,turnstile1.allowPass(moneyCard1));
-        assertEquals(true,turnstile1.allowPass(moneyCard2));
-        assertEquals(true,turnstile1.allowPass(moneyCard3));
+        assertTrue(turnstile1.allowPass(moneyCard1));
+        assertTrue(turnstile1.allowPass(moneyCard2));
+        assertTrue(turnstile1.allowPass(moneyCard3));
 
-        assertEquals(true,turnstile1.allowPass(timeCard1));
-        assertEquals(true,turnstile1.allowPass(timeCard2));
-        assertEquals(true,turnstile1.allowPass(timeCard3));
-        assertEquals(true,turnstile1.allowPass(timeCard4));
+        assertTrue(turnstile1.allowPass(timeCard1));
+        assertTrue(turnstile1.allowPass(timeCard2));
+        assertTrue(turnstile1.allowPass(timeCard3));
+        assertTrue(turnstile1.allowPass(timeCard4));
 
-        assertEquals(true,turnstile1.allowPass(tripCard1));
-        assertEquals(true,turnstile1.allowPass(tripCard2));
-        assertEquals(true,turnstile1.allowPass(tripCard3));
+        assertTrue(turnstile1.allowPass(tripCard1));
+        assertTrue(turnstile1.allowPass(tripCard2));
+        assertTrue(turnstile1.allowPass(tripCard3));
 
-        assertEquals(13, turnstile1.getCountOfAllTrips());
-        assertEquals(13, turnstile1.getCountOfAllowTrips());
-        assertEquals(13, ControlSystem.getCountOfAllTrips());
-        assertEquals(13, ControlSystem.getCountOfAllAllowTrips());
+        assertEquals(16, turnstile1.getCountOfAllTrips());
+        assertEquals(16, turnstile1.getCountOfAllowTrips());
+        assertEquals(16, ControlSystem.getCountOfAllTrips());
+        assertEquals(16, ControlSystem.getCountOfAllAllowTrips());
     }
+    @Test
+    public void cChangeStandardCards(){
+
+        tripCard1.setBalanceOnCard(-5);
+        tripCard2.setEndOfExploitation(YearMonth.of(2018,2));
+        tripCard3.DeactivateCard();
+
+        timeCard1.setEndOfAbonement(new Date(new Date().getTime() - 1000));
+        timeCard2.setEndOfAbonement(-2);
+        timeCard3.setBalanceOnCard(-5);
+        timeCard4.setEndOfExploitation(YearMonth.of(2018,1));
+
+        moneyCard1.setBalanceOnCard(-5);
+        moneyCard2.setStatus(false);
+        moneyCard3.setEndOfExploitation(YearMonth.of(2018,1));
+
+        assertFalse(tripCard1.isCanDoTrip());
+        assertFalse(tripCard2.isHasResourcesOnBalance());
+        assertFalse(tripCard3.getStatus());
+
+        assertFalse(timeCard1.isHasResourcesOnBalance());
+        assertFalse(timeCard2.getStatus());
+        assertFalse(timeCard3.getEndOfAbonement().after(new Date()));
+        assertFalse(timeCard4.isCanDoTrip());
+
+        assertFalse(moneyCard1.isCanDoTrip());
+        assertTrue(moneyCard2.getStatus());
+        assertTrue(moneyCard3.isActivated());
 
 
+    }
+    @Test
+    public void dChangeStudyingCards(){
+        studentCard1.setStudying(false);
+        studentCard2.setStatus(false);
+        studentCard3.setTimeOfEnding(YearMonth.of(2018,2));        
+        pupilCard1.setEndOfExploitation(YearMonth.of(2018,1));
+        
+        assertFalse(studentCard1.isStudying());
+        assertFalse(studentCard2.isCanDoTrip());
+        assertFalse(studentCard3.isStudying());
+        assertFalse(pupilCard1.isStudying());
+    }
+    @Test
+    public void eSecondTrips(){
 
+        assertTrue( turnstile2.allowPass(moneyCard3));
+        assertTrue( turnstile2.allowPass(pupilCard2));
+        assertTrue(turnstile2.allowPass(pupilCard3));
+
+        assertFalse( turnstile2.allowPass(moneyCard1));
+        assertFalse( turnstile2.allowPass(moneyCard2));
+        assertFalse( turnstile2.allowPass(timeCard1));
+        assertFalse( turnstile2.allowPass(timeCard2));
+        assertFalse( turnstile2.allowPass(timeCard3));
+        assertFalse( turnstile2.allowPass(timeCard4));
+        assertFalse( turnstile2.allowPass(tripCard1));
+        assertFalse( turnstile2.allowPass(tripCard2));
+        assertFalse( turnstile2.allowPass(tripCard3));
+        assertFalse( turnstile2.allowPass(studentCard1));
+        assertFalse( turnstile2.allowPass(studentCard2));
+        assertFalse( turnstile2.allowPass(studentCard3));
+        assertFalse( turnstile2.allowPass(pupilCard1));
+
+    }
+    @Test
+    public void fSecondTestTurnstilesAndSystem(){
+        assertEquals(16, ControlSystem.getCountOfCard());
+        assertEquals(4, ControlSystem.getCountOfActiveCard());
+        assertEquals(16, turnstile1.getCountOfAllowTrips());
+        assertEquals(3, turnstile2.getCountOfAllowTrips());
+        assertEquals(32, ControlSystem.getCountOfAllTrips());
+        
+        assertEquals(4, ControlSystem.getListOfThisType(TimeDependCard.class).size());
+        assertEquals(3, ControlSystem.getListOfThisType(StudentCard.class).size());
+    }
 
 }

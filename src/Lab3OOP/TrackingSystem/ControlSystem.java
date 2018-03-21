@@ -32,6 +32,9 @@ public class ControlSystem
         }
         return res;
     }
+    public static int getCountOfCard(){
+        return cardsInSystem.size();
+    }
     public static int getCountOfAllTrips(){
         int res = 0;
         for(Turnstile turnstile : turnstileInSystem.values())

@@ -43,20 +43,32 @@ abstract public class StudyingPersonCard extends Card {
     }
     public void setStudying(boolean studying) {
         this.isStudying = studying;
-        this.isActive = this.isStudying();
+        this.isActive = studying;
         this.checkOnActivate();
     }
 
+
+    @Override     public void setStatus(boolean isActive) {
+        //super.setStatus(isActive);
+        if(!isActivated()) return;
+        setStudying(isActive);
+    }
 
     @Override     public void checkOnActivate(){
         super.checkOnActivate();
         if(this.isAllowToActivate())
         {
-            if(getTimeOfEnding().isBefore(YearMonth.now())) DeactivateCard();
-            if(this.isStudying() != this.getTimeOfEnding().isAfter(YearMonth.now()))
-            {
+            if(isStudying() != getStatus()){
+                setStatus(isStudying());
+            }
+            else if(isStudying() && this.getTimeOfEnding().isBefore(YearMonth.now())){
                 this.setStudying(this.getTimeOfEnding().isAfter(YearMonth.now()));
             }
+           /* if(getTimeOfEnding().isBefore(YearMonth.now())) DeactivateCard();
+            if(this.isStudying() != this.getTimeOfEnding().isAfter(YearMonth.now()) || isStudying != getStatus())
+            {
+                this.setStudying(this.getTimeOfEnding().isAfter(YearMonth.now()));
+            }*/
         }
     }
     @Override     public boolean isCanDoTrip() {
@@ -67,7 +79,6 @@ abstract public class StudyingPersonCard extends Card {
         super.DeactivateCard();
         isStudying = false;
     }
-
     @Override     public void ActivateCard(YearMonth timeOfEnding)  {
         this.timeOfEnding = timeOfEnding;
         super.ActivateCard(timeOfEnding);

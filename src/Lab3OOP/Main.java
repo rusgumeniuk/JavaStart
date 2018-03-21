@@ -107,6 +107,7 @@ public class Main {
         TimeDependCard timeCard2 = ControlSystem.createTimeDependCard(true);
         TimeDependCard timeCard3 = ControlSystem.createTimeDependCard(true, new Date( new Date().getTime() + 1000*60*60*96));
         TimeDependCard timeCard4 = ControlSystem.createTimeDependCard(true,4);
+
         System.out.println(timeCard1.getEndOfAbonement() + " " + timeCard1.getBalanceOnCard() + " " + timeCard1.isHasResourcesOnBalance());
         System.out.println(timeCard2.getEndOfAbonement() + " " + timeCard2.getBalanceOnCard() + " " + timeCard2.isHasResourcesOnBalance());
         System.out.println(timeCard3.getEndOfAbonement() + " " + timeCard3.getBalanceOnCard() + " " + timeCard3.isHasResourcesOnBalance());
