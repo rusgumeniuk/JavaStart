@@ -10,7 +10,7 @@ public class TripDependCard  extends StandardCard {
     }
 
     @Override    public void takeTrip() {
-        --this.balanceOnCard;
+        setBalanceOnCard(getBalanceOnCard() - 1);
         super.takeTrip();
     }
 }

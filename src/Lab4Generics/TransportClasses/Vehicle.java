@@ -3,6 +3,7 @@ package Lab4Generics.TransportClasses;
 import Lab4Generics.PeopleClasses.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 abstract public class Vehicle <T extends Person> {
@@ -41,11 +42,11 @@ abstract public class Vehicle <T extends Person> {
             passenger.setSeat(false);
             return true;
         }
-        System.out.println(new StringBuilder().append(passenger.getId()).append(" is not in ").append(this.getId()).toString());
+        System.out.println(String.valueOf(passenger.getId()) + " is not in " + this.getId());
         return false;
     }
 
-    public void setAmountOfPlaces(int amountOfPlaces){
+    void setAmountOfPlaces(int amountOfPlaces){
         this.amountOfPlaces = amountOfPlaces;
     }
 

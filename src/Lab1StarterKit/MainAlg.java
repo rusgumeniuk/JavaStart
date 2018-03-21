@@ -1,6 +1,6 @@
 package Lab1StarterKit;
 
-public class Main {
+public class MainAlg {
     //Exercise 8
     public static void main(String[] args)
     {
@@ -24,12 +24,12 @@ public class Main {
         if(n % m != 0) return IsPrimeNum(n,m-1);
         return false;
     }
-    public static Boolean IsSuperPrimeNumber(Integer n)    {
-        return IsPrimeNumber(n) ? (IsPrimeNumber(ReverseInt(n)) ? true : false) : false;
+    private static Boolean IsSuperPrimeNumber(Integer n)    {
+        return IsPrimeNumber(n) && (IsPrimeNumber(ReverseInt(n)) ? true : false);
     }
-    public static Integer ReverseInt(Integer n)    {
+    private static Integer ReverseInt(Integer n)    {
         char[] s = n.toString().toCharArray();
-        StringBuffer t = new StringBuffer();
+        StringBuilder t = new StringBuilder();
         for(Integer i = s.length - 1; i >= 0; i--)
         {
             if(s[i] != '-') t.insert(t.length(), s[i]);

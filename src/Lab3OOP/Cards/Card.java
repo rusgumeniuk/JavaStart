@@ -48,15 +48,15 @@ public abstract class Card{
     public void setEndOfExploitation(YearMonth endOfExploitation) {
         if(!isAllowToActivate())return;
         this.endOfExploitation = endOfExploitation;
-        this.checkOnActivate();
+        this.validateCard();
     }
     public void setStatus(boolean isActive){
         if(!this.isAllowToActivate())return;
         this.isActive = isActive;
-        this.checkOnActivate();
+        this.validateCard();
     }
 
-    public void checkOnActivate(){
+    public void validateCard(){
         if(this.isAllowToActivate() && getEndOfExploitation().isBefore(YearMonth.now()))
         {
             this.DeactivateCard();
@@ -68,7 +68,7 @@ public abstract class Card{
     }
     public void takeTrip(){
         this.amountOfAllDoneTrips++;
-        this.checkOnActivate();
+        this.validateCard();
     }
 
     public void DeactivateCard(){
@@ -80,7 +80,7 @@ public abstract class Card{
         this.isActive = true;
         this.isAllowToActivate = true;
         this.endOfExploitation = endOfExploitation;
-        checkOnActivate();
+        validateCard();
         if(getStatus())System.out.println(new StringBuilder().append("Card: ").append(this.getId()).append(" activated!"));
     }
 

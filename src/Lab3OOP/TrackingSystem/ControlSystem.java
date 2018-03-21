@@ -16,6 +16,8 @@ public class ControlSystem
     public static HashMap<UUID, Card> cardsInSystem = new HashMap<>();
     public static HashMap<UUID, Turnstile> turnstileInSystem = new HashMap<>();
 
+    private ControlSystem(){}
+
     private static int costOfTrip = 4;
     public static int getCostOfTrip() {
         return costOfTrip;
@@ -58,7 +60,7 @@ public class ControlSystem
 
     public static String getInfoAboutAllCards(){
         Collection<Card> list = cardsInSystem.values();
-        if(list == null || list.size() < 1 ) return "No one cards";
+        if( list.isEmpty()) return "No one cards";
 
         StringBuilder info = new StringBuilder();
         for (Card card : list)
@@ -88,7 +90,7 @@ public class ControlSystem
     }
 
     public static List<Card> getListOfThisType(Class clas){
-        if(cardsInSystem.size() < 1) return null;
+        if(cardsInSystem.isEmpty()) return null;
         List<Card> list = new ArrayList<>();
         for(Card card : cardsInSystem.values())
         {

@@ -1,7 +1,6 @@
 package Lab3OOP.Cards.StandardCards;
 
 
-import java.time.YearMonth;
 import java.util.Date;
 
 public class TimeDependCard extends StandardCard {
@@ -23,15 +22,13 @@ public class TimeDependCard extends StandardCard {
 
     public void setEndOfAbonement(Date endOfAbonement){
         this.endOfAbonement = endOfAbonement;
-        this.balanceOnCard = this.endOfAbonement.after(new Date ()) ? getDaysFromMilliseconds(this.endOfAbonement.getTime() - new Date().getTime()) : 0;
-        checkOnActivate();
+        setBalanceOnCard(getEndOfAbonement().after(new Date ()) ? getDaysFromMilliseconds(getEndOfAbonement().getTime() - new Date().getTime()) : 0);
+        validateCard();
     }
     public void setEndOfAbonement(int days){
-
             this.balanceOnCard = days > 0 ? days : 0;
             this.endOfAbonement =  days > 0 ? new Date(new Date().getTime() + getMillisecondFromDays(days)) : new Date();
-            checkOnActivate();
-
+            validateCard();
     }
 
     public Date getEndOfAbonement() {
@@ -44,11 +41,11 @@ public class TimeDependCard extends StandardCard {
     }
 
     @Override  public void setBalanceOnCard(int balanceOnCard) {
-        setEndOfAbonement(balanceOnCard);
+       setEndOfAbonement(balanceOnCard);
     }
     /*
-    @Override  public void checkOnActivate() {
-        super.checkOnActivate();
+    @Override  public void validateCard() {
+        super.validateCard();
         try {
             if (this.getStatus() != this.isHasResourcesOnBalance() )
                 this.setStatus(isHasResourcesOnBalance());

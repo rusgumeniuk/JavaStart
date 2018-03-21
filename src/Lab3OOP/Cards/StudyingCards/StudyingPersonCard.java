@@ -4,28 +4,27 @@ package Lab3OOP.Cards.StudyingCards;
 import Lab3OOP.Cards.Card;
 
 import java.time.YearMonth;
-import java.util.Date;
 
 abstract public class StudyingPersonCard extends Card {
 
-    protected boolean isStudying;
-    protected YearMonth timeOfEnding;
+    private boolean isStudying;
+    private YearMonth timeOfEnding;
     {
         isStudying = true;
         timeOfEnding = YearMonth.now().plusYears(4);
     }
-    protected StudyingPersonCard(){
+     StudyingPersonCard(){
         super();
     }
-    protected StudyingPersonCard(boolean isActive){
+     StudyingPersonCard(boolean isActive){
         this();
         this.setStatus(isActive);
     }
-    protected StudyingPersonCard(boolean isActive, boolean isStudying){
+     StudyingPersonCard(boolean isActive, boolean isStudying){
         this(isActive);
         setStudying(isStudying);
     }
-    protected StudyingPersonCard(boolean isActive, YearMonth timeOfEnding){
+     StudyingPersonCard(boolean isActive, YearMonth timeOfEnding){
         this(isActive);
         setTimeOfEnding(timeOfEnding);
     }
@@ -39,12 +38,12 @@ abstract public class StudyingPersonCard extends Card {
 
     public void setTimeOfEnding(YearMonth timeOfEnding) {
         this.timeOfEnding = timeOfEnding;
-        this.checkOnActivate();
+        this.validateCard();
     }
     public void setStudying(boolean studying) {
         this.isStudying = studying;
         this.isActive = studying;
-        this.checkOnActivate();
+        this.validateCard();
     }
 
 
@@ -54,8 +53,8 @@ abstract public class StudyingPersonCard extends Card {
         setStudying(isActive);
     }
 
-    @Override     public void checkOnActivate(){
-        super.checkOnActivate();
+    @Override     public void validateCard(){
+        super.validateCard();
         if(this.isAllowToActivate())
         {
             if(isStudying() != getStatus()){

@@ -12,35 +12,36 @@ import org.junit.runners.MethodSorters;
 
 import java.time.YearMonth;
 import java.util.Date;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestTurnstileSystem {
     
-    static Turnstile turnstile1;// = new Turnstile();
-    static Turnstile turnstile2;// = new Turnstile();
+    private static Turnstile turnstile1;
+    private static Turnstile turnstile2;
 
-    static StudentCard studentCard1;//= ControlSystem.createStudentCard();
-    static StudentCard studentCard2;// = ControlSystem.createStudentCard(true);
-    static StudentCard studentCard3;// = ControlSystem.createStudentCard(true, YearMonth.of(2018,6));
+    private static StudentCard studentCard1;
+    private static StudentCard studentCard2;
+    private static StudentCard studentCard3;
 
-    static PupilCard pupilCard1;// = ControlSystem.createPupilCard();
-    static PupilCard pupilCard2;// = ControlSystem.createPupilCard(true);
-    static PupilCard pupilCard3;// = ControlSystem.createPupilCard(true, YearMonth.of(2018,5));
+    private static PupilCard pupilCard1;
+    private static PupilCard pupilCard2;
+    private static PupilCard pupilCard3;
 
-    static MoneyDependCard moneyCard1;// = ControlSystem.createMoneyDependCard();
-    static MoneyDependCard moneyCard2;// = ControlSystem.createMoneyDependCard(true);
-    static MoneyDependCard moneyCard3;// = ControlSystem.createMoneyDependCard(true,7);
+    private static MoneyDependCard moneyCard1;
+    private static MoneyDependCard moneyCard2;
+    private static MoneyDependCard moneyCard3;
 
 
-    static TripDependCard tripCard1;// = ControlSystem.createTripDependCard();
-    static TripDependCard tripCard2;// = ControlSystem.createTripDependCard(true);
-    static TripDependCard tripCard3;// = ControlSystem.createTripDependCard(true,2);
+    private static TripDependCard tripCard1;
+    private static TripDependCard tripCard2;
+    private static TripDependCard tripCard3;
 
-    static TimeDependCard timeCard1;// = ControlSystem.createTimeDependCard();
-    static TimeDependCard timeCard2;// = ControlSystem.createTimeDependCard(true);
-    static TimeDependCard timeCard3;// = ControlSystem.createTimeDependCard(true, new Date( new Date().getTime() + 1000*60*60*96));
-    static TimeDependCard timeCard4 ;//= ControlSystem.createTimeDependCard(true,4);
+    private static TimeDependCard timeCard1;
+    private static TimeDependCard timeCard2;
+    private static TimeDependCard timeCard3;
+    private static TimeDependCard timeCard4;
 
     @BeforeClass
     public static void letsGetIt(){
@@ -181,9 +182,11 @@ public class TestTurnstileSystem {
         assertEquals(16, turnstile1.getCountOfAllowTrips());
         assertEquals(3, turnstile2.getCountOfAllowTrips());
         assertEquals(32, ControlSystem.getCountOfAllTrips());
-        
-        assertEquals(4, ControlSystem.getListOfThisType(TimeDependCard.class).size());
-        assertEquals(3, ControlSystem.getListOfThisType(StudentCard.class).size());
+
+        assertEquals(1,pupilCard1.getAmountOfAllDoneTrips());
+        assertEquals(2,pupilCard2.getAmountOfAllDoneTrips());
+        assertEquals(4, Objects.requireNonNull(ControlSystem.getListOfThisType(TimeDependCard.class)).size());
+        assertEquals(3, Objects.requireNonNull(ControlSystem.getListOfThisType(StudentCard.class)).size());
     }
 
 }

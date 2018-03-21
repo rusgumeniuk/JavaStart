@@ -1,7 +1,7 @@
 package Lab2Equals;
 import com.google.gson.*;
 
-public class Main {
+public class MainEquals {
     public static void main(String[] args) {
         Gson gson = new Gson();
         Person person = new Person();

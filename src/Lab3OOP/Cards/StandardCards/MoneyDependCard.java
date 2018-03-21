@@ -20,10 +20,11 @@ public class MoneyDependCard extends StandardCard {
     }
 
     @Override    public boolean isCanDoTrip() {
-        return super.isCanDoTrip() && balanceOnCard >= ControlSystem.getCostOfTrip();
+        return super.isCanDoTrip() && getBalanceOnCard() >= ControlSystem.getCostOfTrip();
     }
     @Override    public void takeTrip() {
-        this.balanceOnCard -= ControlSystem.getCostOfTrip();
+        setBalanceOnCard(getBalanceOnCard() - ControlSystem.getCostOfTrip());
+        //this.balanceOnCard -= ControlSystem.getCostOfTrip();
         super.takeTrip();
     }
 }

@@ -4,12 +4,12 @@ package Lab3OOP.Cards.StandardCards;
 import Lab3OOP.Cards.Card;
 
 abstract public class StandardCard extends Card {
-    protected int balanceOnCard;
+    int balanceOnCard;
     public void setBalanceOnCard(int balanceOnCard){
         this.balanceOnCard = balanceOnCard > 0 ? balanceOnCard : 0;
-        checkOnActivate();
+        validateCard();
     }
-    public int getBalanceOnCard() {
+    int getBalanceOnCard() {
         return this.balanceOnCard;
     }
 
@@ -17,9 +17,9 @@ abstract public class StandardCard extends Card {
         setBalanceOnCard(5);
     }
 
-    protected StandardCard(){super();}
-    protected StandardCard(boolean isActive){super(isActive);}
-    protected StandardCard(boolean isActive, int balanceOnCard){
+    StandardCard(){super();}
+    StandardCard(boolean isActive){super(isActive);}
+    StandardCard(boolean isActive, int balanceOnCard){
         this(isActive);
         setBalanceOnCard(balanceOnCard);
     }
@@ -28,8 +28,8 @@ abstract public class StandardCard extends Card {
         return getBalanceOnCard() > 0;
     }
 
-    @Override    public void checkOnActivate() {
-        super.checkOnActivate();
+    @Override    public void validateCard() {
+        super.validateCard();
         if(this.isAllowToActivate()){
             if(this.getStatus() != this.isHasResourcesOnBalance()){
                 this.setStatus(this.isHasResourcesOnBalance());

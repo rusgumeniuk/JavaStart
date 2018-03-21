@@ -8,7 +8,7 @@ import java.util.*;
 Написати програму, яка зчитує дані з текстового файлу та записує рядки в інший файл в порядку зменшення
 рядок з найменшою кількістю символів записується першим, рядок із найбільшою кількістю символів записується останнім.
  */
-public class Main {
+public class MainIO {
     public static void main(String[] args) {
 
         String firstFilePath = "C://Users//Omman//Desktop//input.txt";
