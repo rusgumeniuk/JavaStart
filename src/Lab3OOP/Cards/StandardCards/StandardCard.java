@@ -11,11 +11,10 @@ abstract public class StandardCard extends Card {
     }
     public int getBalanceOnCard() {
         return this.balanceOnCard;
-
     }
 
     {
-        balanceOnCard = 1;
+        setBalanceOnCard(5);
     }
 
     protected StandardCard(){super();}
@@ -26,7 +25,7 @@ abstract public class StandardCard extends Card {
     }
 
     public boolean isHasResourcesOnBalance(){
-        return balanceOnCard > 0;
+        return getBalanceOnCard() > 0;
     }
 
     @Override    public void checkOnActivate() {

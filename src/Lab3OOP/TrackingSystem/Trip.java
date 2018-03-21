@@ -10,34 +10,39 @@ public class Trip{
     private UUID tripId;
     private UUID cardId;
     private Date tripTime;
-    private boolean isAllow;
+    private boolean isDone;
+
     {
         tripId = UUID.randomUUID();
     }
 
-    private Trip(Turnstile turnstile,Card card){
-        turnstile.Trips.put(this.tripId,this);
+    private Trip(Turnstile turnstile,Card card, boolean isDone){
+        turnstile.tripsInTurnstile.put(this.tripId,this);
         this.tripTime = new Date();
         this.cardId = card.getId();
-        this.isAllow = card.isCanDoTrip();
+        this.isDone = isDone;
     }
 
     public UUID getCardId() {
         return cardId;
     }
     public boolean getStatus(){
-        return isAllow;
+        return isDone;
     }
 
     public static Trip makeNewTrip(Turnstile turnstile,Card card){
-        if(card.isCanDoTrip()) card.takeTrip();
-        return new Trip(turnstile, card);
+        boolean isDone = false;
+        if(card.isCanDoTrip()){
+            card.takeTrip();
+            isDone = true;
+        }
+        return new Trip(turnstile, card, isDone);
     }
 
     @Override    public String toString() {
         return new StringBuilder()
                 .append("Trip: ").append(tripId)
-                .append(" was").append(((isAllow)?(""):(" NOT"))).append(" done")
+                .append(" was").append(((isDone)?(""):(" NOT"))).append(" done")
                 .append(" with card: ").append(cardId)
                 .append(" at ").append(tripTime.toString())
                 .toString();

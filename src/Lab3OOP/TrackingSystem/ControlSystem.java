@@ -8,14 +8,14 @@ import Lab3OOP.Cards.StudyingCards.PupilCard;
 import Lab3OOP.Cards.StudyingCards.StudentCard;
 
 import java.time.YearMonth;
-import java.util.Date;
-
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 
 public class ControlSystem
 {
+    public static HashMap<UUID, Card> cardsInSystem = new HashMap<>();
+    public static HashMap<UUID, Turnstile> turnstileInSystem = new HashMap<>();
+
     private static int costOfTrip = 4;
     public static int getCostOfTrip() {
         return costOfTrip;
@@ -24,42 +24,76 @@ public class ControlSystem
         ControlSystem.costOfTrip = costOfTrip > 0 ? costOfTrip : 4;
     }
 
-
-    public static HashMap<UUID, Card> cardsInSystem = new HashMap<>();
-    public static HashMap<UUID, Turnstile> turnstileInSystem = new HashMap<>();
+    public static int getCountOfActiveCard(){
+        int res = 0;
+        for(Card card : cardsInSystem.values()) {
+            if (card.getStatus())
+                ++res;
+        }
+        return res;
+    }
+    public static int getCountOfAllTrips(){
+        int res = 0;
+        for(Turnstile turnstile : turnstileInSystem.values())
+            res+=turnstile.tripsInTurnstile.size();
+        return res;
+    }
+    public static int getCountOfAllAllowTrips(){
+        int res = 0;
+        for(Turnstile turnstile : turnstileInSystem.values()){
+            res += turnstile.getAllAllowTrip() != null ? turnstile.getAllAllowTrip().size() : 0;
+        }
+        return res;
+    }
+    public static int getCountOfNotAllowTrips(){
+        int res = 0;
+        for(Turnstile turnstile : turnstileInSystem.values()){
+            res += turnstile.getAllNotAllowTrip().size();
+        }
+        return res;
+    }
 
     public static String getInfoAboutAllCards(){
+        Collection<Card> list = cardsInSystem.values();
+        if(list == null || list.size() < 1 ) return "No one cards";
+
         StringBuilder info = new StringBuilder();
-        if(cardsInSystem.size() < 1) return info.append("No one cards in Archive").toString();
-        for (Card card: cardsInSystem.values())
+        for (Card card : list)
         {
             info.append(card.toString()).append("\n");
         }
-        return (info.length() > 0 ? info : info.append("No one cards")).toString();
+        return info.toString();//(info.length() > 0 ? info : info.append("No one cards")).toString();
     }
-    public static String getInfoAboutAllTrips(){
+    public static String getInfoAboutAllTripsInAllTurnstiles(){
         if(turnstileInSystem.size() < 1) return "No one turnstile in system";
         StringBuilder info = new StringBuilder();
         for(Turnstile turnstile : turnstileInSystem.values())
         {
-            info.append(turnstile.getInfoAboutAllTrips());
+            info.append(turnstile.getInfoAboutAllTrips()).append("\n");
         }
         return info.toString();
     }
     public static String getInfoAboutCardsOfThisClass(Class clas){
-        StringBuilder info = new StringBuilder();
-        if(cardsInSystem.size() < 1) return info.append("No one cards in Archive").toString();
-        for (Card card: cardsInSystem.values())
-        {
-            if(card.getClass().equals(clas))
-            {
-                info.append(card.toString()).append("\n");
-            }
+        List<Card> list = getListOfThisType(clas);
+        if(list == null || list.size() < 1)return "No one card";
 
-        }
-        return (info.length() > 0 ? info : info.append("No one cards")).toString();
+        StringBuilder info = new StringBuilder();
+        for (Card card: list)
+            info.append(card.toString()).append("\n");
+
+        return info.toString();
     }
 
+    public static List<Card> getListOfThisType(Class clas){
+        if(cardsInSystem.size() < 1) return null;
+        List<Card> list = new ArrayList<>();
+        for(Card card : cardsInSystem.values())
+        {
+            if(card.getTypeOfCard() == clas)
+                list.add(card);
+        }
+        return list;
+    }
 
 
     public static StudentCard createStudentCard(){return new StudentCard();}

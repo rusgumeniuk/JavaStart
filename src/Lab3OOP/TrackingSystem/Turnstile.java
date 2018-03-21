@@ -15,10 +15,11 @@ public class Turnstile
         return turnstileId;
     }
 
-    public HashMap<UUID, Trip> Trips;
+    public HashMap<UUID, Trip> tripsInTurnstile;
+
     {
         turnstileId = UUID.randomUUID();
-        Trips  = new HashMap<>();
+        tripsInTurnstile = new HashMap<>();
         ControlSystem.turnstileInSystem.put(this.getTurnstileId(),this);
     }
 
@@ -27,23 +28,27 @@ public class Turnstile
         return newTrip.getStatus();
     }
 
+    public int getCountOfAllTrips(){
+        return tripsInTurnstile.size();
+    }
+    public int getCountOfAllowTrips(){
+        return getAllAllowTrip() != null ? getAllAllowTrip().size() : 0;
+    }
+    public int getCountOfNotAllowTrips(){
+        return getAllNotAllowTrip().size();
+    }
+
     public List<Trip> getAllTrips(){
-        if(Trips.size() < 1) return null;
-        List<Trip> list = new ArrayList<>();
-        for (Trip trip : Trips.values())
-        {
-            list.add(trip);
-        }
-        return list;
+        return tripsInTurnstile.size() > 0 ? new ArrayList<>(tripsInTurnstile.values()) : null;
     }
     public List<Trip> getAllAllowTrip(){
         return getTripOfStatus(true);
     }
     public List<Trip> getAllNotAllowTrip(){ return getTripOfStatus(false);}
     private List<Trip> getTripOfStatus(boolean tf){
-        if(Trips.size() < 1) return null;
+        if(tripsInTurnstile.size() < 1) return null;
         List<Trip> list = new ArrayList<>();
-        for (Trip trip : Trips.values())
+        for (Trip trip : tripsInTurnstile.values())
         {
             if(trip.getStatus() == tf)
                 list.add(trip);
@@ -53,35 +58,22 @@ public class Turnstile
 
     public String getInfoAboutAllTrips(){
         List<Trip> tripList = getAllTrips();
-        if(tripList == null) return "No one trips in Turnstile";
+        if(tripList == null) return new StringBuilder()
+                .append("No one trips in this ").append(this.getTurnstileId()).append(" turnstile").toString();
         StringBuilder info = new StringBuilder();
-        for (Trip tr:tripList)
+        for (Trip tr : tripList)
         {
             info.append(new StringBuilder().append(tr.toString()).append("\n"));
         }
         return info.toString();
     }
-    public String getInfoAboutTripWithCard(Card card){
-        List<Trip> tripList = getAllTrips();
-        if(tripList == null) return "No one trip";
-
-        StringBuilder info = new StringBuilder();
-        for (Trip trip:tripList)
-        {
-            if(trip.getCardId().equals(card.getId()))
-            {
-                info.append(trip.toString()).append("\n");
-            }
-        }
-        return info.length() > 0 ? info.toString() : "No one trip";
-    }
-    public String getInfoAboutTripWithType(Class thisClass){
+    public String getInfoAboutTripWithType(Class clas){
         List<Trip> tripList = getAllTrips();
         if(tripList == null) return "No one trips in Turnstile"; //може перевіряти через card.amounOfAllTrips()?
         StringBuilder info = new StringBuilder();
         for (Trip trip : tripList)
         {
-            if(ControlSystem.cardsInSystem.get(trip.getCardId()).getClass().equals(thisClass))
+            if(ControlSystem.cardsInSystem.get(trip.getCardId()).getClass().equals(clas))
             {
                 info.append(trip.toString()).append("\n");
             }

@@ -7,23 +7,23 @@ import java.util.Date;
 public class TimeDependCard extends StandardCard {
     private Date endOfAbonement;
     {
-        this.endOfAbonement = new Date(new Date().getTime() + getMillisecondFromDays(1));
+        setEndOfAbonement(new Date(new Date().getTime() + getMillisecondFromDays(2)));
     }
 
     public TimeDependCard() {super();}
     public TimeDependCard(boolean isActive){super(isActive);}
     public TimeDependCard(boolean isActive, int daysForTravel){
-        this(isActive);
+        super(isActive);
         setEndOfAbonement(daysForTravel);
     }
     public TimeDependCard(boolean isActive, Date endOfAbonement){
-        this(isActive);
+        super(isActive);
         setEndOfAbonement(endOfAbonement);
     }
 
     public void setEndOfAbonement(Date endOfAbonement){
         this.endOfAbonement = endOfAbonement;
-        this.balanceOnCard = this.endOfAbonement.getTime() >= new Date ().getTime() ? getDaysFromMilliseconds(this.endOfAbonement.getTime() - new Date().getTime()) : 0;
+        this.balanceOnCard = this.endOfAbonement.after(new Date ()) ? getDaysFromMilliseconds(this.endOfAbonement.getTime() - new Date().getTime()) : 0;
         checkOnActivate();
     }
     public void setEndOfAbonement(int days){
@@ -39,19 +39,25 @@ public class TimeDependCard extends StandardCard {
         return this.endOfAbonement;
     }
 
+    @Override
+    public boolean isHasResourcesOnBalance() {
+        return  getBalanceOnCard() > 0;
+    }
+
     @Override  public void setBalanceOnCard(int balanceOnCard) {
         setEndOfAbonement(balanceOnCard);
     }
+    /*
     @Override  public void checkOnActivate() {
         super.checkOnActivate();
         try {
-            if (this.getStatus() != this.getEndOfAbonement().after(new Date()) || this.isHasResourcesOnBalance() != this.getStatus())
-                this.setStatus(this.getEndOfAbonement().after(new Date()));
+            if (this.getStatus() != this.isHasResourcesOnBalance() )
+                this.setStatus(isHasResourcesOnBalance());
         }
         catch (NullPointerException ex) {
         }
     }
-
+*/
     private int getDaysFromMilliseconds(long milliseconds){
         return(int)( milliseconds/(1000*60*60*24));
     }

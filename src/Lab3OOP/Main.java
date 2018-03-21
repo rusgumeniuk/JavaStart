@@ -7,6 +7,7 @@ import Lab3OOP.Cards.StandardCards.TripDependCard;
 import Lab3OOP.Cards.StudyingCards.PupilCard;
 import Lab3OOP.Cards.StudyingCards.StudentCard;
 import Lab3OOP.TrackingSystem.ControlSystem;
+import Lab3OOP.TrackingSystem.Trip;
 import Lab3OOP.TrackingSystem.Turnstile;
 
 import java.time.YearMonth;
@@ -18,6 +19,7 @@ public class Main {
         Turnstile tr1 = new Turnstile();
         ControlSystem.setCostOfTrip(5);
 
+        /*
         StudentCard sc1 = ControlSystem.createStudentCard(true, YearMonth.now().plusMonths(1));
         PupilCard pc1 = ControlSystem.createPupilCard(true, YearMonth.now().plusMonths(1));
         MoneyDependCard mc1 = ControlSystem.createMoneyDependCard(true,6);
@@ -33,7 +35,7 @@ public class Main {
         tr1.allowPass(tripC1);
 
         printTask(1);
-        //System.out.println(Turnstile.getInfoAboutAllTrips());
+        //System.out.println(Turnstile.getInfoAboutAllTripsInAllTurnstiles());
         System.out.println(tr1.getInfoAboutTripWithCard(timeC1));
 
         tr1.allowPass(sc1);
@@ -57,8 +59,8 @@ public class Main {
         tr1.allowPass(timeC1);
         tr1.allowPass(tripC1);
         System.out.println("#2");
-        //System.out.println(Turnstile.getInfoAboutAllTrips());
-        System.out.println(tr1.getInfoAboutAllTrips());
+        //System.out.println(Turnstile.getInfoAboutAllTripsInAllTurnstiles());
+        System.out.println(tr1.getInfoAboutAllTripsInAllTurnstiles());
 
         printTask(2);
         //System.out.println(ControlSystem.getInfoAboutAllCards());
@@ -74,10 +76,53 @@ public class Main {
         tr1.allowPass(mc1);
         tr1.allowPass(timeC1);
         tr1.allowPass(tripC1);
+*/
+        /*
+        TripDependCard tripDependCard = ControlSystem.createTripDependCard(true,0);
+
+        System.out.println(tripDependCard.toString() + " " + tripDependCard.isCanDoTrip());
+        tr1.allowPass(tripDependCard);
+        //pause(2000);
+
+        tripDependCard.setBalanceOnCard(1);
+        tripDependCard.setEndOfExploitation(YearMonth.of(1999,12));
+        System.out.println(tripDependCard.toString() + " " + tripDependCard.isCanDoTrip());
+        tr1.allowPass(tripDependCard);
+       // pause(2000);
+
+        tripDependCard.ActivateCard(YearMonth.of(2019,12));
+        tripDependCard.setBalanceOnCard(1);
+        System.out.println(tripDependCard.toString() + " " + tripDependCard.isCanDoTrip());
+        tr1.allowPass(tripDependCard);
+        //pause(2000);
+        StudentCard studentCard = ControlSystem.createStudentCard();
+
+        System.out.println(tripDependCard.toString());
+        System.out.println(tr1.getInfoAboutAllTrips());
+        System.out.println("ALL:\n" +ControlSystem.getInfoAboutAllCards() + "\n\n");
+        System.out.println("Student:\n" +ControlSystem.getInfoAboutCardsOfThisClass(StudentCard.class));
+        System.out.println(tr1.getInfoAboutTripWithType(TripDependCard.class));
+        */
+        TimeDependCard timeCard1 = ControlSystem.createTimeDependCard();
+        TimeDependCard timeCard2 = ControlSystem.createTimeDependCard(true);
+        TimeDependCard timeCard3 = ControlSystem.createTimeDependCard(true, new Date( new Date().getTime() + 1000*60*60*96));
+        TimeDependCard timeCard4 = ControlSystem.createTimeDependCard(true,4);
+        System.out.println(timeCard1.getEndOfAbonement() + " " + timeCard1.getBalanceOnCard() + " " + timeCard1.isHasResourcesOnBalance());
+        System.out.println(timeCard2.getEndOfAbonement() + " " + timeCard2.getBalanceOnCard() + " " + timeCard2.isHasResourcesOnBalance());
+        System.out.println(timeCard3.getEndOfAbonement() + " " + timeCard3.getBalanceOnCard() + " " + timeCard3.isHasResourcesOnBalance());
+        System.out.println(timeCard4.getEndOfAbonement() + " " + timeCard4.getBalanceOnCard() + " " + timeCard4.isHasResourcesOnBalance());
     }
 
     private static void printTask(int i){
         System.out.println(("\n" + "Task #" + i).toUpperCase());
+    }
+    private static void pause(int n){
+        try{
+            java.lang.Thread.sleep(n);
+        }
+        catch (Exception ex){
+
+        }
     }
 }
 

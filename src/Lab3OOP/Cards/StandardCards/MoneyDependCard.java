@@ -23,7 +23,7 @@ public class MoneyDependCard extends StandardCard {
         return super.isCanDoTrip() && balanceOnCard >= ControlSystem.getCostOfTrip();
     }
     @Override    public void takeTrip() {
-        super.takeTrip();
         this.balanceOnCard -= ControlSystem.getCostOfTrip();
+        super.takeTrip();
     }
 }

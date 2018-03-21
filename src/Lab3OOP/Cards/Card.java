@@ -8,6 +8,11 @@ import java.util.UUID;
 public abstract class Card{
     protected boolean isActive;
     private UUID id;
+
+    public Class getTypeOfCard() {
+        return typeOfCard;
+    }
+
     private Class typeOfCard;
     private int amountOfAllDoneTrips;
     private YearMonth endOfExploitation;
