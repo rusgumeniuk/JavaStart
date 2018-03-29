@@ -59,7 +59,7 @@ public class MainIO {
             while((s  = reader.readLine()) != null)
             {
                 s = s.trim();
-                if(s.length() > 0) inputData.add(s);
+                if(!s.isEmpty()) inputData.add(s);
             }
         }
         catch (IOException ex){

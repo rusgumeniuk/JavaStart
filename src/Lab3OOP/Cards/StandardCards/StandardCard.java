@@ -17,9 +17,9 @@ abstract public class StandardCard extends Card {
         setBalanceOnCard(5);
     }
 
-    StandardCard(){super();}
-    StandardCard(boolean isActive){super(isActive);}
-    StandardCard(boolean isActive, int balanceOnCard){
+    protected StandardCard(){super();}
+    protected    StandardCard(boolean isActive){super(isActive);}
+    protected StandardCard(boolean isActive, int balanceOnCard){
         this(isActive);
         setBalanceOnCard(balanceOnCard);
     }
