@@ -1,6 +1,4 @@
 package Lab5CollectionsIO;
-
-
 import java.io.*;
 import java.util.*;
 
@@ -9,30 +7,12 @@ import java.util.*;
 рядок з найменшою кількістю символів записується першим, рядок із найбільшою кількістю символів записується останнім.
  */
 public class MainIO {
+
+    static String firstFilePath = "C://Users//Omman//Desktop//input.txt";
+    static String secondFilePath = "C://Users//Omman//Desktop//output.txt";
+
     public static void main(String[] args) {
-
-        String firstFilePath = "C://Users//Omman//Desktop//input.txt";
-        String secondFilePath = "C://Users//Omman//Desktop//output.txt";
-
-        String[] inputInfo = getStringArrayFromFile(firstFilePath);
-        String[] sortedInfo = getSortedArrayByLength(inputInfo);
-
-        StringBuilder textToWrite = new StringBuilder();
-        for (String str: sortedInfo)
-        {
-            textToWrite.append(str).append("\r\n");
-        }
-
-        writeTextToFile(secondFilePath,textToWrite.toString());
-
-        System.out.println(textToWrite.toString().equals(getStringFromFile(secondFilePath)));
-        System.out.println(getStringFromFile(firstFilePath).equals(getStringFromFile(secondFilePath)));
-        System.out.println(Arrays.toString(inputInfo));
-        System.out.println(Arrays.toString(sortedInfo));
-    }
-
-    private static void printTask(int i){
-        System.out.println(("\n" + "Task #" + i).toUpperCase());
+        writeTextFromOneToSecondFile(firstFilePath,secondFilePath);
     }
 
     protected static String[] getSortedArrayByLength(String[] array){
@@ -50,7 +30,7 @@ public class MainIO {
         }
         return newArray;
     }
-    protected static String[] getStringArrayFromFile(String path){
+    protected static String[] getStrArFromFile(String path){
         ArrayList<String> inputData = new ArrayList<>();
 
         try(BufferedReader reader = new BufferedReader(new FileReader(path)))
@@ -62,11 +42,11 @@ public class MainIO {
                 if(!s.isEmpty()) inputData.add(s);
             }
         }
-        catch (IOException ex){
-            System.out.println(ex.getMessage());
-        }
+        catch (IOException ex){ System.out.println(ex.getMessage()); }
+
         return inputData.toArray(new String[inputData.size()]);
     }
+
     protected static String getStringFromFile(String path){
         StringBuilder info = new StringBuilder();
         try(BufferedReader reader = new BufferedReader(new FileReader(path)))
@@ -83,6 +63,17 @@ public class MainIO {
         }
         return info.toString();
     }
+    protected static String getStringFromArray(String[] array){
+        StringBuilder info = new StringBuilder();
+
+        for (String s: array)
+        {
+         info.append(s).append("\r\n");
+        }
+
+        return  info.toString();
+    }
+
     protected static boolean writeTextToFile(String path, String text){
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(path)))
@@ -94,6 +85,18 @@ public class MainIO {
             System.out.println(ex.getMessage());
             return false;
         }
+    }
+
+    protected static void writeTextFromOneToSecondFile(String pathFrom, String pathTo){
+
+        String[] sortedInfo = getSortedArrayByLength(getStrArFromFile(pathFrom));
+        StringBuilder textToWrite = new StringBuilder();
+
+        for (String str: sortedInfo)
+        {
+            textToWrite.append(str).append("\r\n");
+        }
+        writeTextToFile(pathTo, textToWrite.toString());
     }
 }
 

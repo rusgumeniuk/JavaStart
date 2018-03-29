@@ -3,7 +3,7 @@ package Lab5CollectionsIO;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +17,7 @@ public class MainIOTest {
     public void setUp() {
          firstFilePath = "C://Users//Omman//Desktop//input.txt";
          secondFilePath = "C://Users//Omman//Desktop//output.txt";
-         inputAr = MainIO.getStringArrayFromFile(firstFilePath);
+         inputAr = MainIO.getStrArFromFile(secondFilePath);
     }
 
     @Test
@@ -34,34 +34,54 @@ public class MainIOTest {
             }
             len = str.length();
         }
-
         assertTrue(tf);
+    }
+    @Test
+    public void getStrArFromFile(){
+        String[] array = new String[3];
+        array[0] = "TEST#0.0";
+        array[1] = "TEST#0.1";
+        array[2] = "TEST#0.2";
 
+        MainIO.writeTextToFile(secondFilePath, MainIO.getStringFromArray(array));
+
+        String[] arrayFromFile = MainIO.getStrArFromFile(secondFilePath);
+
+        assertArrayEquals(array, arrayFromFile);
     }
 
     @Test
     public void getStringArrayFromFile() {
-        String[] text = new String[2];
-        text[0] = "first";
-        text[1] = "second";
+        String[] text = new String[3];
+        text[0] = "TEST #1.1_";
+        text[1] = "TEST #1.2";
+        text[2] = new Date().toString();
 
-        MainIO.writeTextToFile(secondFilePath, Arrays.toString(text));
+        MainIO.writeTextToFile(secondFilePath, MainIO.getStringFromArray(text));
 
-        System.out.println(Arrays.toString(text));
-        System.out.println(Arrays.toString(MainIO.getStringArrayFromFile(firstFilePath)));
+        inputAr = MainIO.getStrArFromFile(secondFilePath);
 
-        assertArrayEquals(text, MainIO.getStringArrayFromFile(firstFilePath));
-
+        assertEquals(text.length, inputAr.length);
+        assertArrayEquals(text, inputAr);
+    }
+    @Test
+    public void getStringFromFile(){
+        String testText = "TEST getStringFromFile " + new Date();
+        MainIO.writeTextToFile(secondFilePath,testText);
+        assertEquals(testText.trim(), MainIO.getStringFromFile(secondFilePath).trim());
     }
 
-//    @Test
-//    public void testWritingAndReading() {
-//
-//        MainIO.writeTextToFile(secondFilePath, MainIO.getStringFromFile(firstFilePath) + "\nTEST1");
-//        assertEquals(MainIO.getStringFromFile(firstFilePath), MainIO.getStringFromFile(secondFilePath));
-//
-//
-//        MainIO.writeTextToFile(firstFilePath, MainIO.getStringFromFile(secondFilePath) + "\nTEST2");
-//        assertEquals(MainIO.getStringFromFile(firstFilePath), MainIO.getStringFromFile(secondFilePath));
-//    }
+    @Test
+    public void testWritingAndReading() {
+
+        MainIO.writeTextToFile(secondFilePath, MainIO.getStringFromFile(firstFilePath));
+        assertEquals(MainIO.getStringFromFile(firstFilePath), MainIO.getStringFromFile(secondFilePath));
+
+        MainIO.writeTextToFile(secondFilePath, MainIO.getStringFromFile(secondFilePath) + "TEST#2" + new Date());
+
+        MainIO.writeTextToFile(firstFilePath, MainIO.getStringFromFile(secondFilePath));
+        assertEquals(MainIO.getStringFromFile(firstFilePath), MainIO.getStringFromFile(secondFilePath));
+    }
+
+
 }
