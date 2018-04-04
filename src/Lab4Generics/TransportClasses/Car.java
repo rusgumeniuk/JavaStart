@@ -4,6 +4,6 @@ import Lab4Generics.PeopleClasses.Person;
 
 abstract public class Car <T extends Person> extends Vehicle<T> {
     {
-        this.setAmountOfPlaces(8);
+        this.setMaxAmountOfPlaces(8);
     }
 }

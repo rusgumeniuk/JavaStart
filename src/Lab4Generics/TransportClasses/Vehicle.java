@@ -1,27 +1,31 @@
 package Lab4Generics.TransportClasses;
 
+import Lab4Generics.MyExcep.ExcepNoPass;
+import Lab4Generics.MyExcep.ExcepNoPlace;
+import Lab4Generics.MyExcep.ExcepPassHere;
+import Lab4Generics.MyExcep.ExcepPassInOtherCar;
 import Lab4Generics.PeopleClasses.Person;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 abstract public class Vehicle <T extends Person> {
-    private int amountOfPlaces;
+    private int maxAmountOfPlaces;
     private UUID id;
     public ArrayList<T> passengersInVehicle;
 
     {
         id = UUID.randomUUID();
         passengersInVehicle = new ArrayList<>();
-        amountOfPlaces = 20;
+        maxAmountOfPlaces = 20;
     }
 
     public boolean isPassengerInVehicle(T passenger){
         return passengersInVehicle.contains(passenger);
     }
     public  boolean setAPassenger(T passenger){
-        if(!isPassengerInVehicle(passenger) && isHasFreePlace())
+        if(!isHasFreePlace()) throw new ExcepNoPlace();
+        if(!isPassengerInVehicle(passenger))
         {
             if(!passenger.isSeat()){
                 passengersInVehicle.add(passenger);
@@ -29,11 +33,12 @@ abstract public class Vehicle <T extends Person> {
                 return true;
             }
             else
-                System.out.println(new StringBuilder().append(passenger.getId()).append(" is already in some vehicle. Firstly land it"));
+                throw new ExcepPassInOtherCar();
+              //System.out.println(new StringBuilder().append(passenger.getId()).append(" is already in some vehicle. Firstly land it"));
         }
-        else
-            System.out.println(new StringBuilder().append(passenger.getId()).append(" is already in this vehicle."));
-        return false;
+        throw new ExcepPassHere();
+        //System.out.println(new StringBuilder().append(passenger.getId()).append(" is already in this vehicle."));
+        //return false;
     }
     public boolean landingPassenger(T passenger){
         if(passenger.isSeat() && isPassengerInVehicle(passenger))
@@ -42,19 +47,21 @@ abstract public class Vehicle <T extends Person> {
             passenger.setSeat(false);
             return true;
         }
-        System.out.println(String.valueOf(passenger.getId()) + " is not in " + this.getId());
-        return false;
+        throw new ExcepNoPass();
+
+        //System.out.println(String.valueOf(passenger.getId()) + " is not in " + this.getId());
+        //return false;
     }
 
-    void setAmountOfPlaces(int amountOfPlaces){
-        this.amountOfPlaces = amountOfPlaces;
+    void setMaxAmountOfPlaces(int maxAmountOfPlaces){
+        this.maxAmountOfPlaces = maxAmountOfPlaces;
     }
 
-    public int getAmountOfPlaces() {
-        return amountOfPlaces;
+    public int getMaxAmountOfPlaces() {
+        return maxAmountOfPlaces;
     }
     public int getFreePlaces(){
-        return getAmountOfPlaces() - passengersInVehicle.size();
+        return getMaxAmountOfPlaces() - passengersInVehicle.size();
     }
     public int getBusyPlaces(){ return passengersInVehicle.size();}
     public UUID getId(){ return id;}

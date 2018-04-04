@@ -4,6 +4,6 @@ import Lab4Generics.PeopleClasses.Person;
 
 public class Bus extends Vehicle<Person> {
     {
-        this.setAmountOfPlaces(20);
+        this.setMaxAmountOfPlaces(20);
     }
 }

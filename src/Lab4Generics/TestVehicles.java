@@ -38,23 +38,24 @@ public class TestVehicles {
 
     @BeforeClass
     public static void startMethod(){
-         road = new Road();
+        road = new Road();
 
-         person1 = new Person();
+        person1 = new Person();
         person2 = new Person();
         person3 = new Person();
-         pm = new Policeman();
-         pm2 = new Policeman();
-         pm3 = new Policeman();
 
-         fm = new Fireman();
-         fm2 = new Fireman();
-         fm3 = new Fireman();
+        pm = new Policeman();
+        pm2 = new Policeman();
+        pm3 = new Policeman();
 
-         taxi = new Taxi();
-         bus = new Bus();
-         policeCar = new PoliceCar();
-         fireTruck = new FireTruck();
+        fm = new Fireman();
+        fm2 = new Fireman();
+        fm3 = new Fireman();
+
+        taxi = new Taxi();
+        bus = new Bus();
+        policeCar = new PoliceCar();
+        fireTruck = new FireTruck();
 
         road.addVehicleToRoad(taxi);
         road.addVehicleToRoad(bus);
@@ -71,38 +72,48 @@ public class TestVehicles {
     }
     @Test
     public void bAddPassengers(){
-        assertTrue(taxi.setAPassenger(person1));
-        assertTrue(taxi.setAPassenger(fm));
-        assertTrue(taxi.setAPassenger(pm));
-        assertTrue(taxi.setAPassenger(person2));
 
-        assertTrue(policeCar.setAPassenger(pm2));
-        assertTrue(fireTruck.setAPassenger(fm2));
+            assertTrue(taxi.setAPassenger(person1));
+            assertTrue(taxi.setAPassenger(fm));
+            assertTrue(taxi.setAPassenger(pm));
+            assertTrue(taxi.setAPassenger(person2));
 
-        assertTrue(bus.setAPassenger(person3));
-        assertTrue(bus.setAPassenger(fm3));
-        assertTrue(bus.setAPassenger(pm3));
+            assertTrue(policeCar.setAPassenger(pm2));
+            assertTrue(fireTruck.setAPassenger(fm2));
 
-        //
-        assertFalse(bus.setAPassenger(pm));
-        assertFalse(bus.setAPassenger(pm2));
+            assertTrue(bus.setAPassenger(person3));
+            assertTrue(bus.setAPassenger(fm3));
+            assertTrue(bus.setAPassenger(pm3));
+
+            try{ assertFalse(bus.setAPassenger(pm));}
+            catch (IllegalArgumentException ex){ ex.printStackTrace();}
+
+            try{ assertFalse(bus.setAPassenger(pm2)); }
+            catch(IllegalArgumentException ex){ ex.printStackTrace(); }
+
     }
     @Test
     public void cLandPassenger(){
-        assertEquals(3, bus.getBusyPlaces());
-        assertTrue(bus.landingPassenger(person3));
-        assertTrue(bus.landingPassenger(fm3));
-        assertTrue(bus.landingPassenger(pm3));
-        assertEquals(0, bus.getBusyPlaces());
 
-        assertFalse(bus.landingPassenger(person3));
-        assertFalse(taxi.landingPassenger(person3));
+            assertEquals(3, bus.getBusyPlaces());
+            assertTrue(bus.landingPassenger(person3));
+            assertTrue(bus.landingPassenger(fm3));
+            assertTrue(bus.landingPassenger(pm3));
 
-        assertFalse(policeCar.landingPassenger(pm));
+            assertEquals(0, bus.getBusyPlaces());
 
-        assertEquals(2, road.getCountOf(Policeman.class));
-        assertTrue(taxi.setAPassenger(pm3));
-        assertEquals(3, road.getCountOf(Policeman.class));
+            assertEquals(2, road.getCountOf(Policeman.class));
+            assertTrue(taxi.setAPassenger(pm3));
+            assertEquals(3, road.getCountOf(Policeman.class));
+
+        try { assertFalse(bus.landingPassenger(person3));  }
+        catch (IllegalArgumentException ex){ ex.printStackTrace();   }
+
+        try{assertFalse(taxi.landingPassenger(person3)); }
+        catch (IllegalArgumentException ex) {ex.printStackTrace(); }
+
+        try{assertFalse(policeCar.landingPassenger(pm)); }
+        catch (IllegalArgumentException ex){ex.printStackTrace();}
 
     }
     @Test
