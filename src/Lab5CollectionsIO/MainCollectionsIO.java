@@ -88,15 +88,7 @@ public class MainCollectionsIO {
     }
 
     protected static void writeTextFromOneToSecondFile(String pathFrom, String pathTo){
-
-        String[] sortedInfo = getSortedArrayByLength(getStrArFromFile(pathFrom));
-        StringBuilder textToWrite = new StringBuilder();
-
-        for (String str: sortedInfo)
-        {
-            textToWrite.append(str).append("\r\n");
-        }
-        writeTextToFile(pathTo, textToWrite.toString());
+        writeTextToFile(pathTo, getStringFromArray(getSortedArrayByLength(getStrArFromFile(pathFrom))));
     }
 }
 

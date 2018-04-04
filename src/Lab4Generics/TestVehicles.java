@@ -1,5 +1,6 @@
 package Lab4Generics;
 
+import Lab4Generics.MyExcep.ExcepPassInOtherCar;
 import Lab4Generics.PeopleClasses.Fireman;
 import Lab4Generics.PeopleClasses.Person;
 import Lab4Generics.PeopleClasses.Policeman;
@@ -10,6 +11,8 @@ import Lab4Generics.TransportClasses.Cars.Taxi;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.internal.runners.statements.ExpectException;
+import org.junit.rules.ExpectedException;
 import org.junit.runners.MethodSorters;
 
 import static org.junit.Assert.*;
@@ -75,7 +78,7 @@ public class TestVehicles {
 
             assertTrue(taxi.setAPassenger(person1));
             assertTrue(taxi.setAPassenger(fm));
-            assertTrue(taxi.setAPassenger(pm));
+            //assertTrue(taxi.setAPassenger(pm));
             assertTrue(taxi.setAPassenger(person2));
 
             assertTrue(policeCar.setAPassenger(pm2));
@@ -85,12 +88,16 @@ public class TestVehicles {
             assertTrue(bus.setAPassenger(fm3));
             assertTrue(bus.setAPassenger(pm3));
 
-            try{ assertFalse(bus.setAPassenger(pm));}
-            catch (IllegalArgumentException ex){ ex.printStackTrace();}
+
 
             try{ assertFalse(bus.setAPassenger(pm2)); }
             catch(IllegalArgumentException ex){ ex.printStackTrace(); }
 
+    }
+    @Test//(ExpectedException = ExcepPassInOtherCar.class)
+    public void test1(){
+        taxi.setAPassenger(pm);
+        bus.setAPassenger(pm);
     }
     @Test
     public void cLandPassenger(){
