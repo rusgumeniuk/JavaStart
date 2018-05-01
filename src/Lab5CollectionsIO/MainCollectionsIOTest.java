@@ -3,6 +3,7 @@ package Lab5CollectionsIO;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -65,14 +66,14 @@ public class MainCollectionsIOTest {
         assertArrayEquals(text, inputAr);
     }
     @Test
-    public void getStringFromFile(){
+    public void getStringFromFile() throws IOException {
         String testText = "TEST getStringFromFile " + new Date();
         MainCollectionsIO.writeTextToFile(secondFilePath,testText);
         assertEquals(testText.trim(), MainCollectionsIO.getStringFromFile(secondFilePath).trim());
     }
 
     @Test
-    public void testWritingAndReading() {
+    public void testWritingAndReading() throws IOException {
 
         MainCollectionsIO.writeTextToFile(secondFilePath, MainCollectionsIO.getStringFromFile(firstFilePath));
         assertEquals(MainCollectionsIO.getStringFromFile(firstFilePath), MainCollectionsIO.getStringFromFile(secondFilePath));
@@ -83,7 +84,7 @@ public class MainCollectionsIOTest {
         assertEquals(MainCollectionsIO.getStringFromFile(firstFilePath), MainCollectionsIO.getStringFromFile(secondFilePath));
     }
     @Test
-    public void writeTextFromOneToSecondFile(){
+    public void writeTextFromOneToSecondFile() throws IOException{
         MainCollectionsIO.writeTextFromOneToSecondFile(firstFilePath,secondFilePath);
         assertEquals(
                 MainCollectionsIO.getStringFromArray(

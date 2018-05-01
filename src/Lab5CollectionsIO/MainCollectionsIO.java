@@ -47,7 +47,7 @@ public class MainCollectionsIO {
         return inputData.toArray(new String[inputData.size()]);
     }
 
-    protected static String getStringFromFile(String path){
+    protected static String getStringFromFile(String path) throws IOException{
         StringBuilder info = new StringBuilder();
         try(BufferedReader reader = new BufferedReader(new FileReader(path)))
         {
@@ -59,7 +59,7 @@ public class MainCollectionsIO {
             }
         }
         catch (IOException ex){
-            System.out.println(ex.getMessage());
+            throw new IOException();
         }
         return info.toString();
     }
