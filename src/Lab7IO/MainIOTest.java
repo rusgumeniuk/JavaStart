@@ -40,10 +40,10 @@ public class MainIOTest {
     }
     @Test
     public void getCryptedString_ABCandKey0_ReturnsQRS() {
-        String testedString = "ABC";
-        String cryptedString = MainIO.getCryptedString(testedString,key);
+            String testedString = "ABC";
+            String cryptedString = MainIO.getCryptedString(testedString,key);
 
-        assertEquals("qrs", cryptedString);
+            assertEquals("qrs", cryptedString);
     }
     @Test
     public void getDecryptedString_QRSandKey0_ReturnsABC(){
@@ -51,32 +51,73 @@ public class MainIOTest {
         String decryptedString = MainIO.getDecryptedString(testedString,key);
         assertEquals("ABC", decryptedString);
     }
-
     @Test
     public void writeCryptTextToFile_ABCandKey0_ReturnsQRS()throws IOException{
-        String testedString = "ABC";
-        MainIO.writeCryptTextToFile(cryptedFilePath, testedString,key);
+            String testedString = "ABC";
+            MainIO.writeCryptTextToFile(cryptedFilePath, testedString,key);
 
-        String textFromFile = getStringFromFile(cryptedFilePath);
+            String textFromFile = getStringFromFile(cryptedFilePath);
 
-        assertEquals(MainIO.getCryptedString(testedString, key).toString(), textFromFile);
-        assertEquals("qrs", textFromFile);
-    }
+            assertEquals(MainIO.getCryptedString(testedString, key).toString(), textFromFile);
+            assertEquals("qrs", textFromFile);
+        }
     @Test
     public void getDecryptedTextFromFile_QRSandKey0_ReturnsABC() throws IOException{
-        String decryptedText = MainIO.getDecryptedTextFromFile(cryptedFilePath, key);
+            String decryptedText = MainIO.getDecryptedTextFromFile(cryptedFilePath, key);
 
-        assertEquals("ABC", decryptedText);
-        assertEquals(MainIO.getDecryptedString(getStringFromFile(cryptedFilePath), key), decryptedText);
-    }
+            assertEquals("ABC", decryptedText);
+            assertEquals(MainIO.getDecryptedString(getStringFromFile(cryptedFilePath), key), decryptedText);
+        }
     @Test
     public void textTest_CryptAndDecryptText_OK2ZandKeyA_ReturnsTrue(){
-        String text = "0K2Z";
+            String text = "0K2Z";
+            assertEquals(MainIO.getDecryptedString(MainIO.getCryptedString(text,key),key), text);
+        }
 
-        assertEquals(MainIO.getDecryptedString(MainIO.getCryptedString(text,key),key), text);
+        //////////////////////////////////
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getCryptedChar_VALUEandKeyNull_ReturnsException(){
+        MainIO.getCryptedString(null,null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void getCryptedString_VALUEisNULL_ReturnsException(){
+            MainIO.getCryptedString(null,key);
+        }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void getCryptedString_VALUEisEmpty_ReturnsExeption(){
+            MainIO.getCryptedString("", key);
+        }
+        //
+    @Test(expected = IllegalArgumentException.class)
+    public void getDecryptedChar_KEYisNULL_ReturnsExecption(){
+            MainIO.getDecryptedChar('n', null);
+        }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getDecryptedChar_VALUEisNULL_ReturnsException(){
+        MainIO.getDecryptedChar(null,key);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getDecryptedChar_KeyMoreThanChar_ReturnsException() {
+        char testedChar = 'a';
+        key = 'b';
+
+        char cryptedChar = MainIO.getDecryptedChar(testedChar, key);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getDecryptedString_VALUEisNULL_ReturnsException(){
+        MainIO.getDecryptedString(null, key);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getDecryptedString_VALUEisEmpty_ReturnsExeption(){
+        MainIO.getDecryptedString("", key);
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void getDecryptedString_AAAandKeyB_ReturnsException() {
@@ -84,6 +125,26 @@ public class MainIOTest {
     }
 
 
+    @Test(expected = IOException.class)
+    public void writeCryptTextToFile_WrongPath_ReturnsIOException() throws IOException{
+        MainIO.writeCryptTextToFile("", "text", key);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void writeCryptTextToFile_EmptyVALUE_ReturnsIllegalArgumentException() throws IOException{
+        MainIO.writeCryptTextToFile(cryptedFilePath, "", key);
+    }
+
+
+    @Test(expected = IOException.class)
+    public void getDecryptedTextFromFile_WrongPath_ReturnsIOException () throws IOException{
+        MainIO.getDecryptedTextFromFile("", key);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getDecryptedTextFromFile_KEYisNULL_ReturnsIllegalException() throws IOException{
+        MainIO.getDecryptedTextFromFile(cryptedFilePath, null);
+    }
 
 
     private static String getStringFromFile(String path) throws IOException {

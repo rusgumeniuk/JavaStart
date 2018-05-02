@@ -19,7 +19,7 @@ public class MainIO {
     }
 
      static String getCryptedString(String text, Character keyCharacter)throws IllegalArgumentException{
-        if(text.isEmpty()) throw new IllegalArgumentException();
+        if(text == null || text.isEmpty()) throw new IllegalArgumentException();
         StringBuilder cryptedText = new StringBuilder();
         for (Character symbol : text.toCharArray())
         {
@@ -28,7 +28,7 @@ public class MainIO {
         return cryptedText.toString();
     }
      static String getDecryptedString(String text, Character keyCharacter)throws IllegalArgumentException{
-        if(text.isEmpty()) throw new IllegalArgumentException();
+        if(text == null || text.isEmpty()) throw new IllegalArgumentException();
         StringBuilder deCryptedText = new StringBuilder();
         for (Character symbol : text.toCharArray())
         {
