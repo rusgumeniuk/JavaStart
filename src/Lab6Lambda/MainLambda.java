@@ -1,5 +1,4 @@
 package Lab6Lambda;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainLambda {
@@ -9,9 +8,9 @@ public class MainLambda {
         return  List.of(words.split(" ")).stream()
                 .filter(word -> {
                     char[] array = word.toCharArray();
-                    for(int i = 0; i < word.length()-1; ++i)
+                    for(int i = 0; i < word.length() - 1; ++i)
                     {
-                        if((int)array[i+1] <= (int)array[i])return  false;
+                        if( (int)array[i+1] <= (int)array[i] ) return  false;
                     }
                     return true;
                 })

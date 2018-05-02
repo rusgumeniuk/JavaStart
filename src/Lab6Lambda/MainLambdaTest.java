@@ -1,8 +1,5 @@
 package Lab6Lambda;
-
-import com.sun.tools.javac.Main;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class MainLambdaTest {
@@ -44,7 +41,7 @@ public class MainLambdaTest {
     }
 
     @Test
-    public void getWordsWithRisingSymbols_WordsWithDifferentCase_ReturnsThreeWords() {
+    public void getWordsWithRisingSymbols_WordsWithDifferentCases_ReturnsThreeWords() {
         inputWords = "ESet Yes Tru";
         resultArray = MainLambda.getWordsWithRisingSymbols(inputWords);
 
@@ -57,17 +54,17 @@ public class MainLambdaTest {
 
 
     @Test (expected = IllegalArgumentException.class)
-    public void getWordsWithRisingSymbols_Null_ReturnsException() {
+    public void getWordsWithRisingSymbols_VALUEisNull_ReturnsException() {
         resultArray = MainLambda.getWordsWithRisingSymbols(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getWordsWithRisingSymbols_EmptyWord_ReturnsException() {
+    public void getWordsWithRisingSymbols_VALUEisEmptyWord_ReturnsException() {
         resultArray = MainLambda.getWordsWithRisingSymbols("");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getWordsWithRisingSymbols_WhiteSpace_ReturnsException() {
+    public void getWordsWithRisingSymbols_VALUEisWhiteSpaces_ReturnsException() {
         resultArray = MainLambda.getWordsWithRisingSymbols("\t\n");
     }
 

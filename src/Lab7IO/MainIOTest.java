@@ -11,7 +11,6 @@ import java.security.CryptoPrimitive;
 import static org.junit.Assert.*;
 
 public class MainIOTest {
-    // TODO: 02.05.2018 Write test with Exceptions
 
     private String cryptedFilePath;
     private char key;
@@ -100,7 +99,7 @@ public class MainIOTest {
     public void getDecryptedChar_VALUEisNULL_ReturnsException(){
         MainIO.getDecryptedChar(null,key);
     }
-
+        //
     @Test(expected = IllegalArgumentException.class)
     public void getDecryptedChar_KeyMoreThanChar_ReturnsException() {
         char testedChar = 'a';
@@ -124,7 +123,7 @@ public class MainIOTest {
         String text = MainIO.getDecryptedString("aaa",'b');
     }
 
-
+        //
     @Test(expected = IOException.class)
     public void writeCryptTextToFile_WrongPath_ReturnsIOException() throws IOException{
         MainIO.writeCryptTextToFile("", "text", key);
@@ -135,7 +134,7 @@ public class MainIOTest {
         MainIO.writeCryptTextToFile(cryptedFilePath, "", key);
     }
 
-
+        //
     @Test(expected = IOException.class)
     public void getDecryptedTextFromFile_WrongPath_ReturnsIOException () throws IOException{
         MainIO.getDecryptedTextFromFile("", key);
